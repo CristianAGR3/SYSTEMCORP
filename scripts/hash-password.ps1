@@ -3,7 +3,7 @@ param(
   [string]$Password
 )
 
-$iterations = 310000
+$iterations = 100000
 $salt = New-Object byte[] 16
 $rng = [System.Security.Cryptography.RandomNumberGenerator]::Create()
 $rng.GetBytes($salt)

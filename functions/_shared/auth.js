@@ -73,7 +73,7 @@ export async function verifyPassword(password, storedHash) {
   if (scheme !== 'pbkdf2-sha256') return false;
 
   const iterations = Number(iterationsText);
-  if (!Number.isInteger(iterations) || iterations < 100000) return false;
+  if (!Number.isInteger(iterations) || iterations < 100000 || iterations > 100000) return false;
 
   const salt = base64ToBytes(saltB64);
   const expected = base64ToBytes(hashB64);
