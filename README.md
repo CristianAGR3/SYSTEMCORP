@@ -57,4 +57,6 @@ Tambien puedes usar:
 generar_hash_password.bat
 ```
 
+El `.bat` usa PowerShell nativo de Windows, asi que no requiere instalar Node.js.
+
 Lee `configurar_cloudflare.md` para conectar GitHub con Cloudflare Pages paso a paso.
