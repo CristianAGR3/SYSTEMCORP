@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "username": "admin",
+      "name": "Administrador",
+      "roles": ["admin"],
+      "passwordHash": "pbkdf2-sha256$310000$CAMBIA_ESTE_SALT$CAMBIA_ESTE_HASH"
+    },
+    {
+      "username": "logistica",
+      "name": "Encargado Logistica",
+      "roles": ["logistica"],
+      "passwordHash": "pbkdf2-sha256$310000$CAMBIA_ESTE_SALT$CAMBIA_ESTE_HASH"
+    }
+  ]
+}
