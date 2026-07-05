@@ -92,6 +92,46 @@
   .powerbar span:nth-child(4){animation:flicker 2.2s ease-in-out infinite}
   @keyframes flicker{0%,100%{opacity:1}50%{opacity:.3}}
 
+  .brand-logo{
+    display:inline-flex;align-items:center;gap:10px;
+    min-width:0;color:var(--text-hi);text-decoration:none;
+  }
+  .brand-logo-mark{
+    position:relative;
+    width:42px;height:42px;flex:0 0 42px;
+    display:grid;place-items:center;
+    border-radius:8px;
+    background:
+      linear-gradient(145deg, rgba(18,217,160,0.22), rgba(46,155,224,0.10)),
+      #071316;
+    border:1px solid rgba(63,240,196,0.48);
+    box-shadow:
+      0 0 0 1px rgba(18,217,160,0.10) inset,
+      0 12px 28px rgba(18,217,160,0.18);
+  }
+  .brand-logo-mark::after{
+    content:"";position:absolute;inset:5px;
+    border-radius:5px;
+    border:1px solid rgba(227,251,255,0.08);
+    pointer-events:none;
+  }
+  .brand-logo-mark i{
+    position:relative;z-index:1;
+    font-size:21px;color:var(--power-2);
+    filter:drop-shadow(0 0 12px rgba(63,240,196,0.45));
+  }
+  .brand-logo-text{
+    display:flex;flex-direction:column;gap:2px;
+    font-family:'JetBrains Mono',monospace;
+    line-height:1.05;text-transform:uppercase;
+  }
+  .brand-logo-text strong{
+    font-size:12px;letter-spacing:.14em;color:var(--text-hi);
+  }
+  .brand-logo-text span{
+    font-size:9px;letter-spacing:.18em;color:var(--power-2);
+  }
+
   /* ===== Header ===== */
   .header{text-align:center;margin-bottom:6px;padding-top:8px}
   .eyebrow{
@@ -232,7 +272,11 @@
   @media(max-width:600px){
     body{padding:0 16px 48px}
     .header h1{font-size:34px}
-    .topbar{font-size:10px}
+    .topbar{font-size:10px;gap:14px}
+    .brand-logo-mark{width:36px;height:36px;flex-basis:36px}
+    .brand-logo-mark i{font-size:18px}
+    .brand-logo-text strong{font-size:10px}
+    .brand-logo-text span{display:none}
     .info h2{font-size:17px}
     .card{padding:16px}
     .idx{width:20px}
@@ -242,6 +286,7 @@
 
   @media(max-width:380px){
     .header h1{font-size:26px}
+    .brand-logo-text{display:none}
     .icon{width:38px;height:38px;font-size:16px}
     .info p{font-size:11px}
   }
@@ -257,7 +302,13 @@
 <div class="container">
 
   <div class="topbar">
-    <span class="tag">AGR3 // GIC-CONTROL-360</span>
+    <a class="brand-logo" href="/" aria-label="GIC Control 360">
+      <span class="brand-logo-mark"><i class="bi bi-tools"></i></span>
+      <span class="brand-logo-text">
+        <strong>GIC 360</strong>
+        <span>Control hub</span>
+      </span>
+    </a>
     <span class="status">
       <span class="powerbar"><span></span><span></span><span></span><span></span></span>
       SISTEMA EN LINEA
