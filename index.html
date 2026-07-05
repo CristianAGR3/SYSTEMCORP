@@ -94,7 +94,8 @@
 
   .brand-logo{
     display:inline-flex;align-items:center;gap:10px;
-    min-width:0;color:var(--text-hi);text-decoration:none;
+    min-width:0;color:var(--text-hi);
+    cursor:default;user-select:none;
   }
   .brand-logo-mark{
     position:relative;
@@ -302,13 +303,13 @@
 <div class="container">
 
   <div class="topbar">
-    <a class="brand-logo" href="/" aria-label="GIC Control 360">
+    <div class="brand-logo" aria-label="GIC Control 360">
       <span class="brand-logo-mark"><i class="bi bi-tools"></i></span>
       <span class="brand-logo-text">
         <strong>GIC 360</strong>
         <span>Control hub</span>
       </span>
-    </a>
+    </div>
     <span class="status">
       <span class="powerbar"><span></span><span></span><span></span><span></span></span>
       SISTEMA EN LINEA
