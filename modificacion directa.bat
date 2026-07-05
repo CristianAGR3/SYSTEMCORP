@@ -4,7 +4,6 @@ title GIC CONTROL 360 - Modificacion directa
 
 set "REPO_URL=https://github.com/CristianAGR3/SYSTEMCORP.git"
 set "BRANCH=main"
-set "PROJECT_NAME=systemcorp"
 set "COMMIT_MSG=Modificacion directa GIC Control 360 %date% %time%"
 
 cd /d "%~dp0"
@@ -14,11 +13,16 @@ echo ============================================================
 echo   GIC CONTROL 360 - MODIFICACION DIRECTA
 echo ============================================================
 echo.
+echo Este publicador solo requiere Git.
+echo Al subir a GitHub, Cloudflare Pages se actualiza automaticamente
+echo si el proyecto esta conectado al repositorio.
+echo.
 
 where git >nul 2>nul
 if errorlevel 1 (
-  echo ERROR: Git no esta instalado en esta PC.
-  echo Descarga Git desde: https://git-scm.com/download/win
+  echo ERROR: Git no esta instalado en esta computadora.
+  echo Instala Git desde:
+  echo https://git-scm.com/download/win
   pause
   exit /b 1
 )
@@ -29,21 +33,24 @@ if not exist ".git" (
   if errorlevel 1 goto error
 )
 
+echo Configurando rama y remoto...
 git branch -M %BRANCH%
 if errorlevel 1 goto error
 
 git remote get-url origin >nul 2>nul
 if errorlevel 1 (
-  echo Agregando remoto origin...
   git remote add origin %REPO_URL%
 ) else (
-  echo Confirmando remoto origin...
   git remote set-url origin %REPO_URL%
 )
 if errorlevel 1 goto error
 
 echo.
-echo Preparando cambios locales...
+echo Estado actual:
+git status --short
+
+echo.
+echo Preparando todos los cambios...
 git add .
 if errorlevel 1 goto error
 
@@ -57,51 +64,34 @@ if errorlevel 1 (
 )
 
 echo.
-echo Sincronizando con GitHub antes de subir...
+echo Trayendo cambios de GitHub y acomodando tus cambios encima...
 git pull --rebase origin %BRANCH%
 if errorlevel 1 (
   echo.
   echo ERROR: Git encontro conflictos al sincronizar.
-  echo Resuelve los archivos marcados y ejecuta:
-  echo   git rebase --continue
-  echo   git push origin %BRANCH%
+  echo.
+  echo Abre los archivos marcados, resuelve los conflictos y despues ejecuta:
+  echo git add .
+  echo git rebase --continue
+  echo git push origin %BRANCH%
+  echo.
   pause
   exit /b 1
 )
 
 echo.
-echo Subiendo cambios a GitHub...
+echo Subiendo a GitHub...
 git push -u origin %BRANCH%
 if errorlevel 1 goto error
 
 echo.
-echo GitHub actualizado correctamente.
+echo ============================================================
+echo   LISTO
+echo ============================================================
+echo GitHub quedo actualizado.
+echo Cloudflare Pages debe iniciar el deploy automatico desde GitHub.
+echo No se requiere Node.js, npx ni Wrangler en esta computadora.
 echo.
-
-where npx >nul 2>nul
-if errorlevel 1 (
-  echo Cloudflare: no se encontro Node.js/npx en esta PC.
-  echo Si Cloudflare Pages esta conectado a GitHub, el deploy se dispara automaticamente.
-  goto done
-)
-
-echo Actualizando Cloudflare Pages directamente...
-npx wrangler pages deploy . --project-name %PROJECT_NAME% --branch %BRANCH%
-if errorlevel 1 (
-  echo.
-  echo GitHub ya quedo actualizado, pero Cloudflare Wrangler no pudo desplegar directo.
-  echo Verifica sesion con:
-  echo   npx wrangler login
-  echo O revisa que Cloudflare Pages este conectado al repo para deploy automatico.
-  goto done
-)
-
-echo.
-echo Cloudflare Pages actualizado correctamente.
-
-:done
-echo.
-echo Listo.
 pause
 exit /b 0
 
